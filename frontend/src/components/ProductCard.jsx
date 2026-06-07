@@ -1,11 +1,11 @@
-function ProductCard({ nombre, precio, descripcion }) {
+function ProductCard({ name, price, description }) {
   return (
     <div className="card">
-      <h2>{nombre}</h2>
+      <h2>{name}</h2>
 
-      <h3>${precio}</h3>
+      <h3>${price}</h3>
 
-      <p>{descripcion}</p>
+      <p>{description}</p>
     </div>
   )
 }

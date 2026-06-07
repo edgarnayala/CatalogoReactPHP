@@ -5,10 +5,10 @@ import products from './data/products'
 import './App.css'
 
 function App() {
-  const [busqueda, setBusqueda] = useState('')
+  const [search, setSearch] = useState('')
 
   const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(busqueda.toLowerCase())
+    product.name.toLowerCase().includes(search.toLowerCase())
   )
 
   return (
@@ -21,16 +21,16 @@ function App() {
       <input
         type="text"
         placeholder="Buscar producto..."
-        value={busqueda}
-        onChange={(e) => setBusqueda(e.target.value)}
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
       />
 
       {filteredProducts.map((product) => (
         <ProductCard
           key={product.id}
-          nombre={product.name}
-          precio={product.price}
-          descripcion={product.description}
+          name={product.name}
+          price={product.price}
+          description={product.description}
         />
       ))}
     </>
