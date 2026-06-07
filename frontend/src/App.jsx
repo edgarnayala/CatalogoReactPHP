@@ -1,34 +1,14 @@
 import { useState } from 'react'
 import Header from './components/Header'
 import ProductCard from './components/ProductCard'
+import products from './data/products'
 import './App.css'
 
 function App() {
-  const productos = [
-
-    {
-      id: 1,
-      nombre: 'Hotcakes Proteicos',
-      precio: 120,
-      descripcion: 'Proteína sabor vainilla'
-    },
-    {
-      id: 2,
-      nombre: 'Hotcakes Chocolate',
-      precio: 130,
-      descripcion: 'Con cacao y proteína'
-    },
-    {
-      id: 3,
-      nombre: 'Hotcakes Fresa',
-      precio: 125,
-      descripcion: 'Con sabor a fresa'
-    }
-  ]
-
   const [busqueda, setBusqueda] = useState('')
-  const productosFiltrados = productos.filter((producto) =>
-    producto.nombre.toLowerCase().includes(busqueda.toLowerCase())
+
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(busqueda.toLowerCase())
   )
 
   return (
@@ -45,12 +25,13 @@ function App() {
         onChange={(e) => setBusqueda(e.target.value)}
       />
 
-      {productosFiltrados.map((producto) => (<ProductCard
-        key={producto.id}
-        nombre={producto.nombre}
-        precio={producto.precio}
-        descripcion={producto.descripcion}
-      />
+      {filteredProducts.map((product) => (
+        <ProductCard
+          key={product.id}
+          nombre={product.name}
+          precio={product.price}
+          descripcion={product.description}
+        />
       ))}
     </>
   )
