@@ -9,6 +9,11 @@ import './App.css'
 function App() {
   const [search, setSearch] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
+  const [cart, setCart] = useState([])
+
+  const addToCart = (product) => {
+  setCart([...cart, product])
+}
 
   const filteredProducts = products.filter((product) => {
     const matchesSearch = product.name
@@ -29,6 +34,9 @@ function App() {
         descripcion="Proyecto desarrollado con React, PHP y MySQL."
       />
 
+      <h2>Carrito: {cart.length} productos</h2>
+
+
       <SearchBar
         search={search}
         setSearch={setSearch}
@@ -46,10 +54,8 @@ function App() {
       {filteredProducts.map((product) => (
         <ProductCard
           key={product.id}
-          name={product.name}
-          price={product.price}
-          description={product.description}
-          image={product.image}
+          product={product}
+          addToCart={addToCart}
         />
       ))}
     </>
