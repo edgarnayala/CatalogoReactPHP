@@ -7,9 +7,12 @@ import Cart from './components/Cart'
 import './App.css';
 
 function App() {
+  const [cart, setCart] = useState(() => {
+    const savedCart = localStorage.getItem('cart')
+    return savedCart ? JSON.parse(savedCart) : []
+  })
   const [search, setSearch] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
-  const [cart, setCart] = useState([])
   const [products, setProducts] = useState([])
 
   useEffect(() => {
@@ -24,6 +27,10 @@ function App() {
         console.error(error)
       })
   }, [])
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart))
+  }, [cart])
 
   const addToCart = (product) => {
     const existingProduct = cart.find(
@@ -49,6 +56,38 @@ function App() {
     }
   }
 
+
+  const increaseQuantity = (productId) => {
+    const updatedCart = cart.map((item) =>
+      item.id === productId
+        ? { ...item, quantity: item.quantity + 1 }
+        : item
+    )
+
+    setCart(updatedCart)
+  }
+
+  const decreaseQuantity = (productId) => {
+    const updatedCart = cart
+      .map((item) =>
+        item.id === productId
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+      .filter((item) => item.quantity > 0)
+
+    setCart(updatedCart)
+  }
+
+  const removeFromCart = (productId) => {
+    const updatedCart = cart.filter(
+      (item) => item.id !== productId
+    )
+
+    setCart(updatedCart)
+  }
+
+
   const filteredProducts = products.filter((product) => {
     const matchesSearch = product.name
       .toLowerCase()
@@ -68,7 +107,12 @@ function App() {
         descripcion="Proyecto desarrollado con React, PHP y MySQL."
       />
 
-      <Cart cart={cart} />
+      <Cart
+        cart={cart}
+        increaseQuantity={increaseQuantity}
+        decreaseQuantity={decreaseQuantity}
+        removeFromCart={removeFromCart}
+      />
 
       <SearchBar
         search={search}
