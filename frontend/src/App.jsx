@@ -1,16 +1,29 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from './components/Header'
 import ProductCard from './components/ProductCard'
-import products from './data/products'
 import SearchBar from './components/SearchBar'
 import CategoryFilter from './components/CategoryFilter'
 import Cart from './components/Cart'
-import './App.css'; 
+import './App.css';
 
 function App() {
   const [search, setSearch] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [cart, setCart] = useState([])
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    fetch(
+      'http://localhost/CatalogoReactPHP/backend/api/products.php'
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setProducts(data)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }, [])
 
   const addToCart = (product) => {
     const existingProduct = cart.find(
