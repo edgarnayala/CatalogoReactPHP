@@ -5,6 +5,7 @@ import products from './data/products'
 import SearchBar from './components/SearchBar'
 import CategoryFilter from './components/CategoryFilter'
 import Cart from './components/Cart'
+import './App.css'; 
 
 function App() {
   const [search, setSearch] = useState('')
@@ -12,7 +13,27 @@ function App() {
   const [cart, setCart] = useState([])
 
   const addToCart = (product) => {
-    setCart([...cart, product])
+    const existingProduct = cart.find(
+      (item) => item.id === product.id
+    )
+
+    if (existingProduct) {
+      const updatedCart = cart.map((item) =>
+        item.id === product.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      )
+
+      setCart(updatedCart)
+    } else {
+      setCart([
+        ...cart,
+        {
+          ...product,
+          quantity: 1
+        }
+      ])
+    }
   }
 
   const filteredProducts = products.filter((product) => {
@@ -50,13 +71,15 @@ function App() {
         Products found: {filteredProducts.length}
       </p>
 
-      {filteredProducts.map((product) => (
-        <ProductCard
-          key={product.id}
-          product={product}
-          addToCart={addToCart}
-        />
-      ))}
+      <div className="products-grid">
+        {filteredProducts.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            addToCart={addToCart}
+          />
+        ))}
+      </div>
     </>
   )
 }

@@ -1,21 +1,24 @@
 function Cart({ cart }) {
-  return (
-    <div>
-      <h2>Carrito ({cart.length})</h2>
+    const total = cart.reduce(
+        (accumulator, product) =>
+            accumulator + product.price * product.quantity,
+        0
+    )
 
-      {cart.length === 0 ? (
-        <p>No hay productos en el carrito</p>
-      ) : (
-        cart.map((product, index) => (
-          <div key={index}>
-            <p>
-              {product.name} - ${product.price}
-            </p>
-          </div>
-        ))
-      )}
-    </div>
-  )
+    return (
+        <div>
+            <h2>Carrito ({cart.length})</h2>
+
+            {cart.map((product, index) => (
+                <p key={product.id}>
+                    {product.name} x{product.quantity} - $
+                    {product.price * product.quantity}
+                </p>
+            ))}
+
+            <h3>Total: ${total}</h3>
+        </div>
+    )
 }
 
 export default Cart
