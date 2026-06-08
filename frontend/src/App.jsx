@@ -3,6 +3,7 @@ import Header from './components/Header'
 import ProductCard from './components/ProductCard'
 import products from './data/products'
 import SearchBar from './components/SearchBar'
+import CategoryFilter from './components/CategoryFilter'
 import './App.css'
 
 function App() {
@@ -33,23 +34,10 @@ function App() {
         setSearch={setSearch}
       />
 
-      <div>
-        <button onClick={() => setSelectedCategory('All')}>
-          All
-        </button>
-
-        <button onClick={() => setSelectedCategory('Protein')}>
-          Protein
-        </button>
-
-        <button onClick={() => setSelectedCategory('Chocolate')}>
-          Chocolate
-        </button>
-
-        <button onClick={() => setSelectedCategory('Strawberry')}>
-          Strawberry
-        </button>
-      </div>
+      <CategoryFilter
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
 
       <p>
         Products found: {filteredProducts.length}
