@@ -4,7 +4,7 @@ import ProductCard from './components/ProductCard'
 import products from './data/products'
 import SearchBar from './components/SearchBar'
 import CategoryFilter from './components/CategoryFilter'
-import './App.css'
+import Cart from './components/Cart'
 
 function App() {
   const [search, setSearch] = useState('')
@@ -12,8 +12,8 @@ function App() {
   const [cart, setCart] = useState([])
 
   const addToCart = (product) => {
-  setCart([...cart, product])
-}
+    setCart([...cart, product])
+  }
 
   const filteredProducts = products.filter((product) => {
     const matchesSearch = product.name
@@ -34,8 +34,7 @@ function App() {
         descripcion="Proyecto desarrollado con React, PHP y MySQL."
       />
 
-      <h2>Carrito: {cart.length} productos</h2>
-
+      <Cart cart={cart} />
 
       <SearchBar
         search={search}
