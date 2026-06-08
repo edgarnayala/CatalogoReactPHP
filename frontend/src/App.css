@@ -143,3 +143,20 @@ input[type="text"],
   font-weight: bold;
   margin-top: 15px;
 }
+.navbar {
+  background-color: #222;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar a:hover {
+  color: #61dafb;
+}
